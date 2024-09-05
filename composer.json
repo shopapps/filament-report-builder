@@ -1,0 +1,33 @@
+{
+    "name": "wjbecker/filament-report-builder",
+    "description": "Report builder for Filament using laravel models",
+    "keywords": [
+        "filament", "laravel", "reports", "report builder"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Wjbecker\\FilamentReportBuilder\\": "src/"
+        }
+    },
+    "extra" : {
+        "laravel" : {
+            "providers" : [
+                "Wjbecker\\FilamentReportBuilder\\FilamentReportBuilderServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Josh Becker",
+            "email": "josh48202@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php" : "^8.0",
+        "spatie/laravel-package-tools": "^1.0|^1.13"
+    }
+}
