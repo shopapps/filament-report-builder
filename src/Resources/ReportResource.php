@@ -54,6 +54,14 @@ class ReportResource extends Resource
 
     protected static Collection $attributes;
 
+    public static function canAccess(): bool
+    {
+        if(in_array(auth()->user()?->email, config('settings.user.ultra_admins'))) {
+            return true;
+        }
+        return false;
+    }
+    
     public static function form(Form $form): Form
     {
         return $form
