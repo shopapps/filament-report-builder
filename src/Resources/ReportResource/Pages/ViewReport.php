@@ -63,7 +63,7 @@ class ViewReport extends Page implements HasTable
                 $report = $this->getRecord();
 
                 /** @var Builder $query */
-                $query = (new $report->data['source'])::query();
+                $query = (new $report->data['source'])::tenant($report->data['tenant_id'])->query();
                 if (isset($report->data['with'])) {
                     $query->with($report->data['with']);
                 }
