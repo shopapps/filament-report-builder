@@ -40,6 +40,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 
+use App\Models\Tranquility\Estate\Customer as EstateCustomer;
+
 class ReportResource extends Resource
 {
     protected static ?string $model = Report::class;
@@ -61,6 +63,14 @@ class ReportResource extends Resource
                         TextInput::make('name')
                             ->required(),
                         TextInput::make('description')
+                            ->required(),
+                        Select::make('data.tenant_id')
+                            ->label('Customer')
+                            ->options(function () {
+                                return EstateCustomer::forUser()->pluck('name', 'id');
+                            })
+                            ->searchable()
+                            ->native(false)
                             ->required(),
                     ]),
                     Section::make([
@@ -236,6 +246,11 @@ class ReportResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('tenant_id')
+                    ->getStateUsing(fn($record) => EstateCustomer::find(data_get($record->data, 'tenant_id'))?->name ?? '')
+                    ->label('Customer')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('description'),
