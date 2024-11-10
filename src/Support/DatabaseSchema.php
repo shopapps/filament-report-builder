@@ -108,9 +108,13 @@ class DatabaseSchema
         $connection = $model->getConnection();
         $schema = $connection->getDoctrineSchemaManager();
         static::registerTypeMappings($connection->getDoctrineConnection()->getDatabasePlatform());
-        $table = $model->getConnection()->getTablePrefix().$model->getTable();
-        $columns = $schema->listTableColumns($table);
-        $indexes = $schema->listTableIndexes($table);
+
+        $database = $connection->getDatabaseName(); // database_name
+        $table = $model->getTable(); // database_name.table
+        // remove the database name from the table name
+        $table = str_replace($database . '.', '', $table);
+        $columns = $schema->listTableColumns($table, $database);
+        $indexes = $schema->listTableIndexes($table, $database);
 
         return collect($columns)
             ->values()
