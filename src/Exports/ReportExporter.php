@@ -15,6 +15,8 @@ class ReportExporter extends Exporter
     {
         $id = Str::of(url()->previous())->between('reports/', '/view')->toInteger();
         $report = Report::find($id);
+        
+        if(!$report) { return [];}
 
         $columns = [];
         foreach ($report->data['columns'] as $header) {
