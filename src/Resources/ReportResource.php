@@ -78,8 +78,7 @@ class ReportResource extends Resource
                                 return EstateCustomer::forUser()->pluck('name', 'id');
                             })
                             ->searchable()
-                            ->native(false)
-                            ->required(),
+                            ->native(false),
                     ]),
                     Section::make([
                         Checkbox::make('data.with_trashed')->label('Show Deleted Records'),
